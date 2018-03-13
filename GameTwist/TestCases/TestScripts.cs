@@ -50,7 +50,7 @@ namespace GameTwist.TestCases
                 homepage_impl.Checknavigation("Poker");
                 System.Threading.Thread.Sleep(5000);
                 homepage_impl.Search("Slot");
-                System.Threading.Thread.Sleep(10000);
+                System.Threading.Thread.Sleep(5000);
                 if (Browsers.getDriver.Url.Contains("https://www.gametwist.com/en/"))
                 {
                     homepage_impl.SelectLanguage("Deutsch");

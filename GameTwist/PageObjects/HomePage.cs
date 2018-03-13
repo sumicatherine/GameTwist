@@ -53,5 +53,10 @@ namespace GameTwist.PageObjects
         public IWebElement SignInButton { get; set; }
         //To enter user name filed
 
+        
+        [FindsBy(How = How.Id, Using = "wof_close_x")]
+        public IWebElement popupclose { get; set; }
+
+
     }
 }

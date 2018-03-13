@@ -28,10 +28,10 @@ namespace GameTwist.TestImpl
             try
             {
                 //Browsers.reports.verifyElementNotAppear(NickName);
-
+                ClosePopUps();
                 Assert.AreEqual(true, NickName.Displayed);
                 Console.WriteLine("Logged in successfully");
-                ClosePopUps();
+               
             }
             catch (Exception)
             {
@@ -46,27 +46,28 @@ namespace GameTwist.TestImpl
             UserName.SendKeys(username);
             Password.SendKeys(password);
             SignInButton.Click();
-
+            
 
         }
-        public Boolean isAlertPresent()
+        bool CheckIfItExists(string ElementId)
         {
             try
             {
-                Browsers.getDriver.SwitchTo().Alert();
+                Browsers.getDriver.FindElement(By.Id(ElementId));
                 return true;
-            }   // try 
-            catch (NoAlertPresentException Ex)
+            }
+            catch (NoSuchElementException)
             {
                 return false;
-            }   // catch 
-        }   // isAlertPresent()
+            }
+        }
+
         public void ClosePopUps()
         {
-            if (isAlertPresent())
-            {
-                Browsers.getDriver.Close();
-                Console.WriteLine("Pop up closed.");
+            if(CheckIfItExists("popupclose"))
+            { 
+            popupclose.Click();
+            Console.WriteLine("Pop up closed.");
             }
         }
         public void Checknavigation(String gametype)
@@ -138,7 +139,7 @@ namespace GameTwist.TestImpl
                         if (item.Text.Contains("Slots Pharaoh’s Way"))
                         {
                             item.Click();
-                            System.Threading.Thread.Sleep(10000);
+                           
                             Assert.AreEqual(Browsers.getDriver.Url, ExpectedGameUrl);
                             Console.WriteLine("Opened Slots Pharaoh's Way game");
                             break;
@@ -172,7 +173,7 @@ namespace GameTwist.TestImpl
                         itemlang.Click();
                         Assert.AreEqual(itemlang.Text, expectedLanguage);
                         Console.WriteLine("Language successfully changed");
-
+                       
                         break;
                     }
                 }
@@ -194,7 +195,8 @@ namespace GameTwist.TestImpl
                         {
                             Console.WriteLine("Successfully Logging off");
                             item.Click();
-            
+                            System.Threading.Thread.Sleep(5000);
+                            Assert.AreEqual(true, SignInButton.Displayed);
 
                         }
                     }
